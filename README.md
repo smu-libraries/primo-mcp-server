@@ -43,6 +43,43 @@ Register it in Claude Code by adding this to `~/.claude/settings.json`:
 Restart Claude Code. The tools will appear as `mcp__primo__primo_search`,
 `mcp__primo__primo_get_record`, and related tool names.
 
+## Azure Deployment
+
+This server can run as an Azure-hosted MCP endpoint using the StreamableHTTP transport.
+
+Supported Azure App Service artifacts in this repository:
+
+- `requirements.txt` — Python dependency list for Azure deployment
+- `startup.txt` — Linux App Service startup command
+- `startup.cmd` — Windows App Service startup command
+- `web.config` — App Service configuration for Python process startup
+
+Deployment options:
+
+- Use the exported ASGI app directly:
+
+```bash
+uvicorn primo_mcp_server:asgi_app --host 0.0.0.0 --port ${PORT}
+```
+
+- Or run the package with Azure-compatible environment variables:
+
+```bash
+PRIMO_MCP_TRANSPORT=streamable-http PORT=8000 python -m primo_mcp_server
+```
+
+Recommended environment variables for Azure deployment:
+
+- `PRIMO_MCP_TRANSPORT=streamable-http`
+- `PORT` (provided by Azure App Service)
+- `HOST=0.0.0.0`
+
+When using Azure Web App startup files:
+
+- For Linux App Service, use `startup.txt`
+- For Windows App Service, use `startup.cmd`
+- For direct App Service startup commands, point to `primo_mcp_server:asgi_app` or `python -m primo_mcp_server`
+
 ## Development
 
 ```bash

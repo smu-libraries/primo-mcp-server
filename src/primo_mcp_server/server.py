@@ -53,6 +53,8 @@ mcp = FastMCP(
     lifespan=app_lifespan,
 )
 
+asgi_app = mcp.streamable_http_app()
+
 
 def _get_client(ctx: Context) -> PrimoClient:
     """Extract the PrimoClient from the lifespan context."""
