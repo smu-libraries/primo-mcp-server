@@ -9,7 +9,7 @@ from typing import Final
 
 from primo_mcp_server.server import asgi_app, mcp
 
-DEFAULT_TRANSPORT: Final = "stdio"
+DEFAULT_TRANSPORT: Final = "streamable-http"
 
 
 def main() -> None:
